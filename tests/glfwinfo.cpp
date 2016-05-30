@@ -220,7 +220,7 @@ static void list_vulkan_instance_extensions(void)
     if (vkEnumerateInstanceExtensionProperties(NULL, &ep_count, NULL) != VK_SUCCESS)
         return;
 
-    ep = calloc(ep_count, sizeof(VkExtensionProperties));
+    ep = (VkExtensionProperties*) calloc(ep_count, sizeof(VkExtensionProperties));
 
     if (vkEnumerateInstanceExtensionProperties(NULL, &ep_count, ep) != VK_SUCCESS)
     {
@@ -247,7 +247,7 @@ static void list_vulkan_instance_layers(void)
     if (vkEnumerateInstanceLayerProperties(&lp_count, NULL) != VK_SUCCESS)
         return;
 
-    lp = calloc(lp_count, sizeof(VkLayerProperties));
+    lp = (VkLayerProperties*) calloc(lp_count, sizeof(VkLayerProperties));
 
     if (vkEnumerateInstanceLayerProperties(&lp_count, lp) != VK_SUCCESS)
     {
@@ -279,7 +279,7 @@ static void list_vulkan_device_extensions(VkInstance instance, VkPhysicalDevice 
     if (vkEnumerateDeviceExtensionProperties(device, NULL, &ep_count, NULL) != VK_SUCCESS)
         return;
 
-    ep = calloc(ep_count, sizeof(VkExtensionProperties));
+    ep = (VkExtensionProperties*) calloc(ep_count, sizeof(VkExtensionProperties));
 
     if (vkEnumerateDeviceExtensionProperties(device, NULL, &ep_count, ep) != VK_SUCCESS)
     {
@@ -306,7 +306,7 @@ static void list_vulkan_device_layers(VkInstance instance, VkPhysicalDevice devi
     if (vkEnumerateDeviceLayerProperties(device, &lp_count, NULL) != VK_SUCCESS)
         return;
 
-    lp = calloc(lp_count, sizeof(VkLayerProperties));
+    lp = (VkLayerProperties*) calloc(lp_count, sizeof(VkLayerProperties));
 
     if (vkEnumerateDeviceLayerProperties(device, &lp_count, lp) != VK_SUCCESS)
     {
@@ -808,8 +808,8 @@ int main(int argc, char** argv)
     {
         uint32_t i, re_count, pd_count;
         const char** re;
-        VkApplicationInfo ai = {0};
-        VkInstanceCreateInfo ici = {0};
+        VkApplicationInfo ai = {VK_STRUCTURE_TYPE_APPLICATION_INFO};
+        VkInstanceCreateInfo ici = {VK_STRUCTURE_TYPE_APPLICATION_INFO};
         VkInstance instance;
         VkPhysicalDevice* pd;
         PFN_vkCreateInstance vkCreateInstance = (PFN_vkCreateInstance)
@@ -863,7 +863,7 @@ int main(int argc, char** argv)
             exit(EXIT_FAILURE);
         }
 
-        pd = calloc(pd_count, sizeof(VkPhysicalDevice));
+        pd = (VkPhysicalDevice*) calloc(pd_count, sizeof(VkPhysicalDevice));
 
         if (vkEnumeratePhysicalDevices(instance, &pd_count, pd) != VK_SUCCESS)
         {

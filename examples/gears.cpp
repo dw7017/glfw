@@ -145,8 +145,8 @@ gear(GLfloat inner_radius, GLfloat outer_radius, GLfloat width,
     glNormal3f((float) cos(angle), (float) sin(angle), 0.f);
   }
 
-  glVertex3f(r1 * (float) cos(0), r1 * (float) sin(0), width * 0.5f);
-  glVertex3f(r1 * (float) cos(0), r1 * (float) sin(0), -width * 0.5f);
+  glVertex3f(r1 * (float) cos(0.0), r1 * (float) sin(0.0), width * 0.5f);
+  glVertex3f(r1 * (float) cos(0.0), r1 * (float) sin(0.0), -width * 0.5f);
 
   glEnd();
 

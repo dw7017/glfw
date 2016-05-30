@@ -896,7 +896,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 static int physics_thread_main(void* arg)
 {
-    GLFWwindow* window = arg;
+    GLFWwindow* window = (GLFWwindow*) arg;
 
     for (;;)
     {

@@ -223,12 +223,12 @@ typedef VkResult (APIENTRY * PFN_vkEnumerateInstanceExtensionProperties)(const c
     }
 
 // Swaps the provided pointers
-#define _GLFW_SWAP_POINTERS(x, y) \
-    {                             \
-        void* t;                  \
-        t = x;                    \
-        x = y;                    \
-        y = t;                    \
+#define _GLFW_SWAP_POINTERS(x, y, z) \
+    {                                \
+        z t;                         \
+        t = x;                       \
+        x = y;                       \
+        y = t;                       \
     }
 
 

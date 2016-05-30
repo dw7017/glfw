@@ -812,7 +812,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg,
             int i;
 
             const int count = DragQueryFileW(drop, 0xffffffff, NULL, 0);
-            char** paths = calloc(count, sizeof(char*));
+            char** paths = (char**) calloc(count, sizeof(char*));
 
             // Move the mouse to the position of the drop
             DragQueryPoint(drop, &pt);
@@ -821,7 +821,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg,
             for (i = 0;  i < count;  i++)
             {
                 const UINT length = DragQueryFileW(drop, i, NULL, 0);
-                WCHAR* buffer = calloc(length + 1, sizeof(WCHAR));
+                WCHAR* buffer = (WCHAR*) calloc(length + 1, sizeof(WCHAR));
 
                 DragQueryFileW(drop, i, buffer, length + 1);
                 paths[i] = _glfwCreateUTF8FromWideStringWin32(buffer);
@@ -953,13 +953,13 @@ GLFWbool _glfwRegisterWindowClassWin32(void)
     wc.lpszClassName = _GLFW_WNDCLASSNAME;
 
     // Load user-provided icon if available
-    wc.hIcon = LoadImageW(GetModuleHandleW(NULL),
+    wc.hIcon = (HICON) LoadImageW(GetModuleHandleW(NULL),
                           L"GLFW_ICON", IMAGE_ICON,
                           0, 0, LR_DEFAULTSIZE | LR_SHARED);
     if (!wc.hIcon)
     {
         // No user-provided icon found, load default icon
-        wc.hIcon = LoadImageW(NULL,
+        wc.hIcon = (HICON) LoadImageW(NULL,
                               IDI_APPLICATION, IMAGE_ICON,
                               0, 0, LR_DEFAULTSIZE | LR_SHARED);
     }
@@ -1643,7 +1643,7 @@ const char* _glfwPlatformGetClipboardString(_GLFWwindow* window)
 
     free(_glfw.win32.clipboardString);
     _glfw.win32.clipboardString =
-        _glfwCreateUTF8FromWideStringWin32(GlobalLock(stringHandle));
+        _glfwCreateUTF8FromWideStringWin32((const WCHAR*) GlobalLock(stringHandle));
 
     GlobalUnlock(stringHandle);
     CloseClipboard();
@@ -1667,7 +1667,7 @@ char** _glfwPlatformGetRequiredInstanceExtensions(uint32_t* count)
     if (!_glfw.vk.KHR_win32_surface)
         return NULL;
 
-    extensions = calloc(2, sizeof(char*));
+    extensions = (char**) calloc(2, sizeof(char*));
     extensions[0] = strdup("VK_KHR_surface");
     extensions[1] = strdup("VK_KHR_win32_surface");
 

@@ -351,7 +351,7 @@ WCHAR* _glfwCreateWideStringFromUTF8Win32(const char* source)
     if (!length)
         return NULL;
 
-    target = calloc(length, sizeof(WCHAR));
+    target = (WCHAR*) calloc(length, sizeof(WCHAR));
 
     if (!MultiByteToWideChar(CP_UTF8, 0, source, -1, target, length))
     {
@@ -373,7 +373,7 @@ char* _glfwCreateUTF8FromWideStringWin32(const WCHAR* source)
     if (!length)
         return NULL;
 
-    target = calloc(length, sizeof(char));
+    target = (char*) calloc(length, sizeof(char));
 
     if (!WideCharToMultiByte(CP_UTF8, 0, source, -1, target, length, NULL, NULL))
     {

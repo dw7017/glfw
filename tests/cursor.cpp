@@ -39,6 +39,15 @@
 #endif
 
 #include <math.h>
+#if defined(_WIN32) || defined(_WIN64)
+#ifndef fmax
+#define fmax max
+#endif
+#ifndef fmin
+#define fmin min
+#endif
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 

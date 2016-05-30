@@ -238,7 +238,7 @@ int main(int argc, char** argv)
         GLFWmonitor** monitors = glfwGetMonitors(&monitor_count);
 
         window_count = monitor_count;
-        windows = calloc(window_count, sizeof(GLFWwindow*));
+        windows = (GLFWwindow**) calloc(window_count, sizeof(GLFWwindow*));
 
         for (i = 0;  i < monitor_count;  i++)
         {
@@ -255,7 +255,7 @@ int main(int argc, char** argv)
             monitor = glfwGetPrimaryMonitor();
 
         window_count = 1;
-        windows = calloc(window_count, sizeof(GLFWwindow*));
+        windows = (GLFWwindow**) calloc(window_count, sizeof(GLFWwindow*));
         windows[0] = create_window(monitor);
     }
 

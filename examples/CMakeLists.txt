@@ -22,19 +22,19 @@ elseif (APPLE)
 endif()
 
 set(GLAD "${GLFW_SOURCE_DIR}/deps/glad/glad.h"
-         "${GLFW_SOURCE_DIR}/deps/glad.c")
+         "${GLFW_SOURCE_DIR}/deps/glad.cpp")
 set(GETOPT "${GLFW_SOURCE_DIR}/deps/getopt.h"
-           "${GLFW_SOURCE_DIR}/deps/getopt.c")
+           "${GLFW_SOURCE_DIR}/deps/getopt.cpp")
 set(TINYCTHREAD "${GLFW_SOURCE_DIR}/deps/tinycthread.h"
-                "${GLFW_SOURCE_DIR}/deps/tinycthread.c")
+                "${GLFW_SOURCE_DIR}/deps/tinycthread.cpp")
 
-add_executable(boing WIN32 MACOSX_BUNDLE boing.c ${ICON} ${GLAD})
-add_executable(gears WIN32 MACOSX_BUNDLE gears.c ${ICON} ${GLAD})
-add_executable(heightmap WIN32 MACOSX_BUNDLE heightmap.c ${ICON} ${GLAD})
-add_executable(particles WIN32 MACOSX_BUNDLE particles.c ${ICON} ${TINYCTHREAD} ${GETOPT} ${GLAD})
-add_executable(simple WIN32 MACOSX_BUNDLE simple.c ${ICON} ${GLAD})
-add_executable(splitview WIN32 MACOSX_BUNDLE splitview.c ${ICON} ${GLAD})
-add_executable(wave WIN32 MACOSX_BUNDLE wave.c ${ICON} ${GLAD})
+add_executable(boing WIN32 MACOSX_BUNDLE boing.cpp ${ICON} ${GLAD})
+add_executable(gears WIN32 MACOSX_BUNDLE gears.cpp ${ICON} ${GLAD})
+add_executable(heightmap WIN32 MACOSX_BUNDLE heightmap.cpp ${ICON} ${GLAD})
+add_executable(particles WIN32 MACOSX_BUNDLE particles.cpp ${ICON} ${TINYCTHREAD} ${GETOPT} ${GLAD})
+add_executable(simple WIN32 MACOSX_BUNDLE simple.cpp ${ICON} ${GLAD})
+add_executable(splitview WIN32 MACOSX_BUNDLE splitview.cpp ${ICON} ${GLAD})
+add_executable(wave WIN32 MACOSX_BUNDLE wave.cpp ${ICON} ${GLAD})
 
 target_link_libraries(particles "${CMAKE_THREAD_LIBS_INIT}" "${RT_LIBRARY}")
 

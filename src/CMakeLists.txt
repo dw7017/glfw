@@ -3,33 +3,33 @@ set(common_HEADERS internal.h
                    "${GLFW_BINARY_DIR}/src/glfw_config.h"
                    "${GLFW_SOURCE_DIR}/include/GLFW/glfw3.h"
                    "${GLFW_SOURCE_DIR}/include/GLFW/glfw3native.h")
-set(common_SOURCES context.c init.c input.c monitor.c vulkan.c window.c)
+set(common_SOURCES context.cpp init.cpp input.cpp monitor.cpp vulkan.cpp window.cpp)
 
 if (_GLFW_COCOA)
     set(glfw_HEADERS ${common_HEADERS} cocoa_platform.h cocoa_joystick.h
                      posix_tls.h nsgl_context.h)
     set(glfw_SOURCES ${common_SOURCES} cocoa_init.m cocoa_joystick.m
-                     cocoa_monitor.m cocoa_window.m cocoa_time.c posix_tls.c
+                     cocoa_monitor.m cocoa_window.m cocoa_time.cpp posix_tls.cpp
                      nsgl_context.m)
 elseif (_GLFW_WIN32)
     set(glfw_HEADERS ${common_HEADERS} win32_platform.h win32_joystick.h
                      wgl_context.h egl_context.h)
-    set(glfw_SOURCES ${common_SOURCES} win32_init.c win32_joystick.c
-                     win32_monitor.c win32_time.c win32_tls.c win32_window.c
-                     wgl_context.c egl_context.c)
+    set(glfw_SOURCES ${common_SOURCES} win32_init.cpp win32_joystick.cpp
+                     win32_monitor.cpp win32_time.cpp win32_tls.cpp win32_window.cpp
+                     wgl_context.cpp egl_context.cpp)
 elseif (_GLFW_X11)
     set(glfw_HEADERS ${common_HEADERS} x11_platform.h xkb_unicode.h
                      linux_joystick.h posix_time.h posix_tls.h glx_context.h
                      egl_context.h)
-    set(glfw_SOURCES ${common_SOURCES} x11_init.c x11_monitor.c x11_window.c
-                     xkb_unicode.c linux_joystick.c posix_time.c posix_tls.c
-                     glx_context.c egl_context.c)
+    set(glfw_SOURCES ${common_SOURCES} x11_init.cpp x11_monitor.cpp x11_window.cpp
+                     xkb_unicode.cpp linux_joystick.cpp posix_time.cpp posix_tls.cpp
+                     glx_context.cpp egl_context.cpp)
 elseif (_GLFW_WAYLAND)
     set(glfw_HEADERS ${common_HEADERS} wl_platform.h linux_joystick.h
                      posix_time.h posix_tls.h xkb_unicode.h egl_context.h)
-    set(glfw_SOURCES ${common_SOURCES} wl_init.c wl_monitor.c wl_window.c
-                     linux_joystick.c posix_time.c posix_tls.c xkb_unicode.c
-                     egl_context.c)
+    set(glfw_SOURCES ${common_SOURCES} wl_init.cpp wl_monitor.cpp wl_window.cpp
+                     linux_joystick.cpp posix_time.cpp posix_tls.cpp xkb_unicode.cpp
+                     egl_context.cpp)
 
     ecm_add_wayland_client_protocol(glfw_SOURCES
         PROTOCOL
@@ -42,9 +42,9 @@ elseif (_GLFW_WAYLAND)
 elseif (_GLFW_MIR)
     set(glfw_HEADERS ${common_HEADERS} mir_platform.h linux_joystick.h
                      posix_time.h posix_tls.h xkb_unicode.h egl_context.h)
-    set(glfw_SOURCES ${common_SOURCES} mir_init.c mir_monitor.c mir_window.c
-                     linux_joystick.c posix_time.c posix_tls.c xkb_unicode.c
-                     egl_context.c)
+    set(glfw_SOURCES ${common_SOURCES} mir_init.cpp mir_monitor.cpp mir_window.cpp
+                     linux_joystick.cpp posix_time.cpp posix_tls.cpp xkb_unicode.cpp
+                     egl_context.cpp)
 endif()
 
 if (APPLE)

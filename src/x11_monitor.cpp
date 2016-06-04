@@ -214,7 +214,7 @@ _GLFWmonitor** _glfwPlatformGetMonitors(int* count)
         RROutput primary = XRRGetOutputPrimary(_glfw.x11.display,
                                                _glfw.x11.root);
 
-        monitors = calloc(sr->noutput, sizeof(_GLFWmonitor*));
+        monitors = (_GLFWmonitor**) calloc(sr->noutput, sizeof(_GLFWmonitor*));
 
         if (_glfw.x11.xinerama.available)
             screens = XineramaQueryScreens(_glfw.x11.display, &screenCount);
@@ -269,7 +269,7 @@ _GLFWmonitor** _glfwPlatformGetMonitors(int* count)
                 monitors[found - 1] = monitor;
 
                 if (ci->outputs[j] == primary)
-                    _GLFW_SWAP_POINTERS(monitors[0], monitors[found - 1]);
+                    _GLFW_SWAP_POINTERS(monitors[0], monitors[found - 1], _GLFWmonitor*);
             }
 
             XRRFreeCrtcInfo(ci);
@@ -293,7 +293,7 @@ _GLFWmonitor** _glfwPlatformGetMonitors(int* count)
 
     if (!monitors)
     {
-        monitors = calloc(1, sizeof(_GLFWmonitor*));
+        monitors = (_GLFWmonitor**) calloc(1, sizeof(_GLFWmonitor*));
         monitors[0] = _glfwAllocMonitor("Display",
                                         DisplayWidthMM(_glfw.x11.display,
                                                        _glfw.x11.screen),
@@ -348,7 +348,7 @@ GLFWvidmode* _glfwPlatformGetVideoModes(_GLFWmonitor* monitor, int* count)
         ci = XRRGetCrtcInfo(_glfw.x11.display, sr, monitor->x11.crtc);
         oi = XRRGetOutputInfo(_glfw.x11.display, sr, monitor->x11.output);
 
-        result = calloc(oi->nmode, sizeof(GLFWvidmode));
+        result = (GLFWvidmode*) calloc(oi->nmode, sizeof(GLFWvidmode));
 
         for (i = 0;  i < oi->nmode;  i++)
         {
@@ -379,7 +379,7 @@ GLFWvidmode* _glfwPlatformGetVideoModes(_GLFWmonitor* monitor, int* count)
     else
     {
         *count = 1;
-        result = calloc(1, sizeof(GLFWvidmode));
+        result = (GLFWvidmode*) calloc(1, sizeof(GLFWvidmode));
         _glfwPlatformGetVideoMode(monitor, result);
     }
 

@@ -364,8 +364,8 @@ static char** parseUriList(char* text, int* count)
 
         (*count)++;
 
-        char* path = calloc(strlen(line) + 1, 1);
-        paths = realloc(paths, *count * sizeof(char*));
+        char* path = (char*) calloc(strlen(line) + 1, 1);
+        paths = (char**) realloc(paths, *count * sizeof(char*));
         paths[*count - 1] = path;
 
         while (*line)
@@ -964,7 +964,7 @@ static void processEvent(XEvent *event)
 
                     if (status == XBufferOverflow)
                     {
-                        chars = calloc(count + 1, 1);
+                        chars = (char*) calloc(count + 1, 1);
                         count = Xutf8LookupString(window->x11.ic,
                                                   &event->xkey,
                                                   chars, count,
@@ -1614,7 +1614,7 @@ void _glfwPlatformSetWindowIcon(_GLFWwindow* window,
         for (i = 0;  i < count;  i++)
             longCount += 2 + images[i].width * images[i].height;
 
-        long* icon = calloc(longCount, sizeof(long));
+        long* icon = (long int*) calloc(longCount, sizeof(long));
         long* target = icon;
 
         for (i = 0;  i < count;  i++)
@@ -2289,7 +2289,7 @@ char** _glfwPlatformGetRequiredInstanceExtensions(uint32_t* count)
             return NULL;
     }
 
-    extensions = calloc(2, sizeof(char*));
+    extensions = (char**) calloc(2, sizeof(char*));
     extensions[0] = strdup("VK_KHR_surface");
 
     if (_glfw.vk.KHR_xcb_surface && _glfw.x11.x11xcb.handle)

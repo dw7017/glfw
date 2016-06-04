@@ -95,11 +95,11 @@ static GLFWbool openJoystickDevice(const char* path)
 
     ioctl(fd, JSIOCGAXES, &axisCount);
     js->axisCount = (int) axisCount;
-    js->axes = calloc(axisCount, sizeof(float));
+    js->axes = (float*) calloc(axisCount, sizeof(float));
 
     ioctl(fd, JSIOCGBUTTONS, &buttonCount);
     js->buttonCount = (int) buttonCount;
-    js->buttons = calloc(buttonCount, 1);
+    js->buttons = (unsigned char*) calloc(buttonCount, 1);
 
     _glfwInputJoystickChange(joy, GLFW_CONNECTED);
     return GLFW_TRUE;
@@ -158,8 +158,8 @@ static GLFWbool pollJoystickEvents(_GLFWjoystickLinux* js)
 #if defined(__linux__)
 static int compareJoysticks(const void* fp, const void* sp)
 {
-    const _GLFWjoystickLinux* fj = fp;
-    const _GLFWjoystickLinux* sj = sp;
+    const _GLFWjoystickLinux* fj = (const _GLFWjoystickLinux*) fp;
+    const _GLFWjoystickLinux* sj = (const _GLFWjoystickLinux*) sp;
     return strcmp(fj->path, sj->path);
 }
 #endif // __linux__
